@@ -11,12 +11,18 @@ spec:
   - port: {{ $.Values.coordinator.client.port | default 31010 }}
     targetPort: client
     name: client
+    {{- if and (eq $.Values.service.type "NodePort") $.Values.coordinator.client.nodePort }}
+    nodePort: {{ $.Values.coordinator.client.nodePort }}
+    {{- end }}          
   - port: {{ $.Values.coordinator.web.port | default 9047 }}
     targetPort: web
     name: web
   - port: {{ $.Values.coordinator.flight.port | default 32010 }}
     targetPort: flight
     name: flight
+    {{- if and (eq $.Values.service.type "NodePort") $.Values.coordinator.flight.nodePort }}
+    nodePort: {{ $.Values.coordinator.flight.nodePort }}
+    {{- end }}     
   selector:
     app: dremio-coordinator
   type: {{ $.Values.service.type }}
