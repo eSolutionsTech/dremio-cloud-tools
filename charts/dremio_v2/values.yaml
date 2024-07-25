@@ -139,6 +139,13 @@ coordinator:
     # periodSeconds: Polling frequency expressed in seconds
     periodSeconds: 1
 
+  # Liveness Probe
+  livenessProbe:
+    # initialDelaySeconds: Wait time before performing the first probe
+    initialDelaySeconds: 20
+    # periodSeconds: Polling frequency expressed in seconds
+    periodSeconds: 5
+
   # Readiness Probe
   readinessProbe:
     # Max timeout for the probe is calculated as failureThreshold * periodSeconds

@@ -97,6 +97,15 @@ spec:
             port: 9047
           failureThreshold: {{ $.Values.coordinator.startupProbe.failureThreshold }}
           periodSeconds: {{ $.Values.coordinator.startupProbe.periodSeconds }}
+        livenessProbe:
+          httpGet:
+            path: /
+            {{- if $.Values.coordinator.web.tls.enabled }}
+            scheme: HTTPS
+            {{- end }}
+            port: web
+          initialDelaySeconds: {{ $.Values.coordinator.livenessProbe.initialDelaySeconds }}
+          periodSeconds: {{ $.Values.coordinator.livenessProbe.periodSeconds }}         
         readinessProbe:
           httpGet:
             path: /
